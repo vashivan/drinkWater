@@ -9,10 +9,12 @@ document.addEventListener('DOMContentLoaded', function() {
   const startReminderButton = document.getElementById('startReminder');
   const drinkenCupsButton = document.getElementById('drinkenCups');
   const countdownTimerElement = document.getElementById('countdownTimer');
+  const resetButtonElement = document.getElementById('reset');
 
   dailyIntakeElement.textContent = `${dailyIntakeWater} мл`;
   cupsPerDayElement.textContent = `${cupsPerDay} склянок`;
   drinkenCupsButton.textContent = `Випито: ${drinkenCups}`;
+  resetButtonElement.textContent = 'Обнуляймося';
 
   let reminderInterval;
   let countdownTimer;
@@ -40,9 +42,9 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   startReminderButton.addEventListener('click', function() {
-    startCountdown();
+    remindTimer();
     reminderInterval = setInterval(remindTimer, 60 * 60 * 1000);
-    alert('Нагадвання розпочато!');
+    alert('Нагадування розпочато!');
   });
 
   drinkenCupsButton.addEventListener('click', function() {
@@ -61,10 +63,13 @@ document.addEventListener('DOMContentLoaded', function() {
       dailyIntakeWater = 2000;
       cupsPerDay = 8;
       drinkenCups = 0;
+
+      clearInterval(reminderInterval);
+      clearInterval(countdownTimer);
   
       dailyIntakeElement.textContent = `${dailyIntakeWater} мл`;
       cupsPerDayElement.textContent = `${cupsPerDay} склянок`;
-      drinkenCupsButton.textContent = `Випито: ${drinkenCups}`;      
+      drinkenCupsButton.textContent = `Випито: ${drinkenCups}`;
       countdownTimerElement.textContent = '';
   
       clearInterval(remindTimer);
@@ -73,4 +78,21 @@ document.addEventListener('DOMContentLoaded', function() {
       alert('Вітаю, ви упісяєтесь незабаром!:)');
     }
   });
+
+  resetButtonElement.addEventListener('click', function() {
+    dailyIntakeWater = 2000;
+    cupsPerDay = 8;
+    drinkenCups = 0;
+
+    clearInterval(reminderInterval);
+    clearInterval(countdownTimer);
+    clearInterval(remindTimer);
+
+    dailyIntakeElement.textContent = `${dailyIntakeWater} мл`;
+    cupsPerDayElement.textContent = `${cupsPerDay} склянок`;
+    drinkenCupsButton.textContent = `Випито: ${drinkenCups}`;
+    countdownTimerElement.textContent = '';
+
+    alert('Ок, зупиняємо лічильник. Тож ви засохнете і помрете');
+  })
 })
